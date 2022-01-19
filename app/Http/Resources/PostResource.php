@@ -14,14 +14,14 @@ class PostResource extends JsonResource
      * @return array|JsonSerializable
      */
     public function toArray($request)
-    {   // TO-DO: FIX TO WORK WITH PAGINATION
+    {
         return [
-            "id" => $this->Id,
-            "title" => $this->Title,
-            "slug" => $this->Slug,
-            "lastUpdateDate" => $this->LastUpdateDate,
-            "category" => $this->Category->Name,
-            "author" => $this->Author->Name
+            "data" => [
+                "total" => $this->count(),
+                "page" => $this->currentPage(),
+                "pageSize" => $this->perPage(),
+                "posts" =>  $this->items()
+            ]
         ];
     }
 }

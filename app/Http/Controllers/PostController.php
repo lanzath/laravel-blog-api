@@ -9,10 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // TO-DO: WORK ON PAGINATION AND API RESOURCE RESPONSE
-        $posts = Post::with(['author', 'category'])->get();
-        return response(PostResource::collection($posts));
+        $posts = new PostResource(Post::simplePaginate(10));
+        return response()->json($posts, Response::HTTP_OK);
     }
 }
